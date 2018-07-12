@@ -61,8 +61,8 @@ function checkboxDoneHandler(event: Event): void {
 }
 
 //delete a to do item
-function deleteHandler(): void {
-	console.log("delete clicked");
+function deleteHandler(event: Event): void {
+	event.srcElement!.parentElement!.remove();
 }
 
 //************** EVENT LISTENERS ********************
