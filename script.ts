@@ -9,10 +9,24 @@ function addItem(): void {
     var shoppingList = <Element> document.querySelector("#shopping-list");
 
     if(itemToAddTxt.value.length > 0) {
-        let newItem = document.createElement("li");
-        newItem.appendChild(document.createTextNode(itemToAddTxt.value));
-        
-        shoppingList.appendChild(newItem);
+        let newListItem = document.createElement("li");
+		newListItem.appendChild(document.createTextNode(itemToAddTxt.value));
+
+		let newDeleteButton = document.createElement("button");
+		newDeleteButton.appendChild(document.createTextNode("delete"));
+
+		let doneLabel = document.createElement("label");
+
+		let checkbox = document.createElement("input");
+		checkbox.type = "checkbox";
+
+		doneLabel.appendChild(checkbox);
+		doneLabel.appendChild(document.createTextNode("Done"));
+
+		newListItem.appendChild(newDeleteButton);
+		newListItem.appendChild(doneLabel);
+
+        shoppingList.appendChild(newListItem);
         itemToAddTxt.value = "";
     }
 }
