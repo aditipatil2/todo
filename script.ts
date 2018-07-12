@@ -1,6 +1,5 @@
-function handleAddItem(): void {
-    var shoppingList = <Element> document.querySelector(".shopping-list");
-
+//process adding to do
+function addItemHandler(): void {
     if(itemToAddTxt.value.length > 0) {
 		let newListItem = document.createElement("li");
 		let todoLabel = document.createElement("label");
@@ -12,6 +11,8 @@ function handleAddItem(): void {
 
 		let newDeleteButton = document.createElement("button");
 		newDeleteButton.appendChild(document.createTextNode("delete"));
+		newDeleteButton.className = "delete";
+		newDeleteButton.addEventListener("click", deleteHandler);
 
 		//each label around checkbox has name - for detecting when checkbox is clicked
 		let doneLabel = document.createElement("label");
@@ -22,7 +23,7 @@ function handleAddItem(): void {
 
 		doneLabel.appendChild(checkbox);
 		doneLabel.appendChild(document.createTextNode("Done"));
-		doneLabel.addEventListener("click", handleClickDone);
+		doneLabel.addEventListener("click", checkboxDoneHandler);
 
 		newListItem.appendChild(newDeleteButton);
 		newListItem.appendChild(doneLabel);
@@ -32,30 +33,36 @@ function handleAddItem(): void {
     }
 }
 
-function addItemEnter(event: KeyboardEvent): void {
-    console.log("keypress>event=" + event.which);
+//process adding to do when press Enter
+function addItemEnterHandler(event: KeyboardEvent): void {
     if(event.which === 13) {
-        handleAddItem();
+        addItemHandler();
     }
+}
+
+//cross off the done item
+function checkboxDoneHandler(): void {
+	console.log("checkbox clicked");
+}
+
+//delete a to do item
+function deleteHandler(): void {
+	console.log("delete clicked");
 }
 
 var addItemButton = <HTMLButtonElement> document.querySelector(".userinput-button");
 var itemToAddTxt = <HTMLInputElement> document.querySelector(".userinput");
 var shoppingList = <Element> document.querySelector(".shopping-list");
-var shoppingListCheckboxes = shoppingList.querySelectorAll(".todo-check");
-var todoCheckboxList = shoppingList.querySelectorAll(".todo-check");
+var doneCheckboxList = shoppingList.querySelectorAll(".todo-check");
+var deleteButtonList = document.querySelectorAll(".delete");
 
-function handleClickDone(): void {
-	console.log("checkbox clicked");
+for(let i=0; i<doneCheckboxList.length; i++) {
+	doneCheckboxList[i].addEventListener("click", checkboxDoneHandler);
 }
 
-for(let i=0; i<todoCheckboxList.length; i++) {
-	todoCheckboxList[i].addEventListener("click", handleClickDone);
+for(let i=0; i<deleteButtonList.length; i++) {
+	deleteButtonList[i].addEventListener("click", deleteHandler);
 }
 
-for(let i=0; i<shoppingListCheckboxes.length; i++) {
-	shoppingListCheckboxes[i].addEventListener("click", handleClickDone);
-}
-
-itemToAddTxt.addEventListener("keypress", addItemEnter);
-addItemButton.addEventListener("click", handleAddItem);
+itemToAddTxt.addEventListener("keypress", addItemEnterHandler);
+addItemButton.addEventListener("click",   addItemHandler);
