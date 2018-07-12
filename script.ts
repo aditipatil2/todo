@@ -1,4 +1,4 @@
-function addItem(): void {
+function handleAddItem(): void {
     var shoppingList = <Element> document.querySelector(".shopping-list");
 
     if(itemToAddTxt.value.length > 0) {
@@ -35,22 +35,14 @@ function addItem(): void {
 function addItemEnter(event: KeyboardEvent): void {
     console.log("keypress>event=" + event.which);
     if(event.which === 13) {
-        addItem();
+        handleAddItem();
     }
 }
 
-var buttons = document.getElementsByTagName("button");
-
-
-var button1 = buttons.item(0);
-button1 = buttons[0];
-
+var addItemButton = <HTMLButtonElement> document.querySelector(".userinput-button");
 var itemToAddTxt = <HTMLInputElement> document.querySelector(".userinput");
-
 var shoppingList = <Element> document.querySelector(".shopping-list");
 var shoppingListCheckboxes = shoppingList.querySelectorAll(".todo-check");
-var shoppingListLabels = shoppingList.getElementsByTagName("label");
-
 var todoCheckboxList = shoppingList.querySelectorAll(".todo-check");
 
 function handleClickDone(): void {
@@ -66,5 +58,4 @@ for(let i=0; i<shoppingListCheckboxes.length; i++) {
 }
 
 itemToAddTxt.addEventListener("keypress", addItemEnter);
-button1.addEventListener("click", addItem);
-
+addItemButton.addEventListener("click", handleAddItem);
