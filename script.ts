@@ -10,31 +10,32 @@ var deleteButtonList = document.querySelectorAll(".delete");
 //process adding to do
 function addItemHandler(): void {
     if(itemToAddTxt.value.length > 0) {
+		//main <li> element - will add children under it
 		let newListItem = document.createElement("li");
+
+		//<label class="todo">Rice</label> - will cross this out
 		let todoLabel = document.createElement("label");
 		todoLabel.appendChild(document.createTextNode(itemToAddTxt.value));
-
-		//each label around to do text has name - to cross it out
 		todoLabel.className = "todo";
 		newListItem.appendChild(todoLabel);
 
+		//<button class="delete">delete</button>
 		let newDeleteButton = document.createElement("button");
 		newDeleteButton.appendChild(document.createTextNode("delete"));
 		newDeleteButton.className = "delete";
 		newDeleteButton.addEventListener("click", deleteHandler);
+		newListItem.appendChild(newDeleteButton);
 
-		//each label around checkbox has name - for detecting when checkbox is clicked
-		let doneLabel = document.createElement("label");
-		doneLabel.className = "todo-check";
-
+		//<input class="todo-check" type="checkbox">
 		let checkbox = document.createElement("input");
 		checkbox.type = "checkbox";
+		checkbox.className = "todo-check";
+		checkbox.addEventListener("click", checkboxDoneHandler);
+		newListItem.appendChild(checkbox);
 
-		doneLabel.appendChild(checkbox);
+		//<label>Done</label>
+		let doneLabel = document.createElement("label");
 		doneLabel.appendChild(document.createTextNode("Done"));
-		doneLabel.addEventListener("click", checkboxDoneHandler);
-
-		newListItem.appendChild(newDeleteButton);
 		newListItem.appendChild(doneLabel);
 
         shoppingList.appendChild(newListItem);
@@ -56,8 +57,8 @@ function checkboxDoneHandler(event: Event): void {
 	//https://stackoverflow.com/questions/195951/change-an-elements-class-with-javascript/196038
 
 	let checkboxElement = event.srcElement!;
-	let parent = checkboxElement.parentElement!.parentElement!;
-	parent.querySelector(".todo")!.classList.toggle("done");
+	let parent = checkboxElement.parentElement!;
+	parent!.querySelector(".todo")!.classList.toggle("done");
 }
 
 //delete a to do item
