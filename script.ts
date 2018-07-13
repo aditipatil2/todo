@@ -10,33 +10,34 @@ var deleteButtonList = document.querySelectorAll(".delete");
 //process adding to do
 function addItemHandler(): void {
     if(itemToAddTxt.value.length > 0) {
-		//main <li> element - will add children under it
-		let newListItem = document.createElement("li");
+        //main <li> element - will add children under it
+        let newListItem = document.createElement("li");
 
-		//<label class="todo">Rice</label> - will cross this out
-		let todoLabel = document.createElement("label");
-		todoLabel.appendChild(document.createTextNode(itemToAddTxt.value));
-		todoLabel.className = "todo";
-		newListItem.appendChild(todoLabel);
+        //<label class="todo">Rice</label> - will cross this out
+        let todoLabel = document.createElement("label");
+        todoLabel.appendChild(document.createTextNode(itemToAddTxt.value));
+        todoLabel.className = "todo";
+        newListItem.appendChild(todoLabel);
 
-		//<button class="delete">delete</button>
-		let newDeleteButton = document.createElement("button");
-		newDeleteButton.appendChild(document.createTextNode("delete"));
-		newDeleteButton.className = "delete";
-		newDeleteButton.addEventListener("click", deleteHandler);
-		newListItem.appendChild(newDeleteButton);
+        //<button class="delete">delete</button>
+        let newDeleteButton = document.createElement("button");
+        newDeleteButton.appendChild(document.createTextNode("delete"));
+        newDeleteButton.className = "delete";
+        newDeleteButton.addEventListener("click", deleteHandler);
+        newListItem.appendChild(newDeleteButton);
 
-		//<input class="todo-check" type="checkbox">
-		let checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.className = "todo-check";
-		checkbox.addEventListener("click", checkboxDoneHandler);
-		newListItem.appendChild(checkbox);
+        //<input class="todo-check" type="checkbox">
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "todo-check";
+        checkbox.addEventListener("click", checkboxDoneHandler);
+        newListItem.appendChild(checkbox);
 
-		//<label>Done</label>
-		let doneLabel = document.createElement("label");
-		doneLabel.appendChild(document.createTextNode("Done"));
-		newListItem.appendChild(doneLabel);
+        //<label>Done</label>
+        let doneLabel = document.createElement("label");
+        doneLabel.appendChild(document.createTextNode("Done"));
+        newListItem.appendChild(doneLabel);
+        
 
         shoppingList.appendChild(newListItem);
         itemToAddTxt.value = "";
@@ -53,29 +54,29 @@ function addItemEnterHandler(event: KeyboardEvent): void {
 
 //cross off the done item
 function checkboxDoneHandler(event: Event): void {
-	//change an elements class with toggling:
-	//https://stackoverflow.com/questions/195951/change-an-elements-class-with-javascript/196038
+    //change an elements class with toggling:
+    //https://stackoverflow.com/questions/195951/change-an-elements-class-with-javascript/196038
 
-	let checkboxElement = event.srcElement!;
-	let parent = checkboxElement.parentElement!;
-	parent!.querySelector(".todo")!.classList.toggle("done");
+    let checkboxElement = event.srcElement!;
+    let parent = checkboxElement.parentElement!;
+    parent!.querySelector(".todo")!.classList.toggle("done");
 }
 
 //delete a to do item
 function deleteHandler(event: Event): void {
-	event.srcElement!.parentElement!.remove();
+    event.srcElement!.parentElement!.remove();
 }
 
 //************** EVENT LISTENERS ********************
 
 //add event listeners for checkboxes
 for(let i=0; i<doneCheckboxList.length; i++) {
-	doneCheckboxList[i].addEventListener("click", checkboxDoneHandler);
+    doneCheckboxList[i].addEventListener("click", checkboxDoneHandler);
 }
 
 //add event listeners for delete buttons
 for(let i=0; i<deleteButtonList.length; i++) {
-	deleteButtonList[i].addEventListener("click", deleteHandler);
+    deleteButtonList[i].addEventListener("click", deleteHandler);
 }
 
 //add event listeners for pressing Enter key or clicking Enter button
